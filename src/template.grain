@@ -1,0 +1,69 @@
+default={
+	id: "state"
+	, parentNode:page
+	, children:["<button onclick='transition(\"default\")'>Default</button>"]
+}
+other={
+	id: "state"
+	, parentNode:page
+	, children:["<button onclick='transition(\"other\")'>Other</button>"]
+}
+page={
+	children:["<html>",body,"</html>"]
+}
+button={
+	id:"transition"
+	tagName:"div"
+	, children:[GetBlock("state")]
+}
+body={
+	tagName:"body"
+	, children:[
+		button
+		, "<hr>"
+	]
+}
+//after Block.Template()
+default=>{
+	content:[
+		"<html>"//0
+		,"<body>"//1
+		,"<div id='transition'>"//2
+		,function(...){...}//3
+		,"</div>"//4
+		,"<hr/>"//5
+		,"</body>"//6
+		,"</html>"//7
+	],
+	blocks:{
+		"transition":{
+			start:2//inclusive
+			,end:5//exclusive
+		}
+		,"state":{
+			children:["<button onclick='transition(\"default\")'>Default</button>"]
+		}
+	}
+}
+other={
+	content:[
+		"<html>"//0
+		,"<body>"//1
+		,"<div id='transition'>"//2
+		,function(...){...}//3
+		,"</div>"//4
+		,"<hr/>"//5
+		,"</body>"//6
+		,"</html>"//7
+	],
+	blocks:{
+		"transition":{
+			start:2//inclusive
+			,end:5//exclusive
+		}
+		,"state":{
+			children:["<button onclick='transition(\"other\")'>Other</button>"]
+		}
+	}
+}
+
